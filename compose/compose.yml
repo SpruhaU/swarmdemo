@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    image: django-image:v4
+    restart: unless-stopped
+    deploy:
+      # mode: replicated
+      replicas: 3
+    ports:
+     - "8080-8085:8000"
+    volumes:
+      - static_volume:/path/to/static/files
+      - media_volume:/path/to/media/files
+
+volumes:
+  static_volume:
+  media_volume:

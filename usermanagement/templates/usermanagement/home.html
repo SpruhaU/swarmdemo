@@ -1,0 +1,19 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Home Page</title>
+    </head>
+    <body>
+        <h1>Welcome to the Home Page!</h1>
+
+        {% if user.is_authenticated %}
+            <p>Hello, {{ user.username }}! <a href="{% url 'user_list' %}">User List</a></p>
+        {% else %}
+            <form method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                {{ login_form }}
+                <button type="submit">Login</button>
+            </form>
+        {% endif %}
+    </body>
+    </html>
