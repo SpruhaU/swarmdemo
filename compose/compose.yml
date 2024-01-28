@@ -1,18 +1,28 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  web:
-    image: django-image:v4
-    restart: unless-stopped
-    deploy:
-      # mode: replicated
-      replicas: 3
-    ports:
-     - "8080-8085:8000"
-    volumes:
-      - static_volume:/path/to/static/files
-      - media_volume:/path/to/media/files
 
+  web:
+    image: spruha29/spruha-thesis-repo1:djangoapp
+    restart: unless-stopped  
+    ports:
+        - :80
+    volumes:
+    - static_volume:/path/to/static/files
+    - media_volume:/path/to/media/files
+    
+   # command: /app/path/inside/container/custom-start-script
+
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+      replicas: 3
+      placement:
+        constraints:
+            - node.role==worker
+      
 volumes:
   static_volume:
   media_volume:
